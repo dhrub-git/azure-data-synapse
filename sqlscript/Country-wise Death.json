@@ -2,12 +2,12 @@
 	"name": "Country-wise Death",
 	"properties": {
 		"content": {
-			"query": "SELECT\n    country_region,\n    CAST(SUM(deaths) as INT) as [Total Death]\nFROM\n    OPENROWSET(\n        BULK 'https://azuredatalake4synapse.dfs.core.windows.net/azuredatalakefs4synapse/covid-19/bing_covid-19_data/bing_covid-19_data.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result] GROUP BY [result].country_region;",
+			"query": "CREATE VIEW country_wise AS\nSELECT\n    country_region,\n    CAST(SUM(deaths) as INT) as [Total Death]\nFROM\n    OPENROWSET(\n        BULK 'https://azuredatalake4synapse.dfs.core.windows.net/azuredatalakefs4synapse/covid-19/bing_covid-19_data/bing_covid-19_data.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result] GROUP BY [result].country_region;\n",
 			"metadata": {
 				"language": "sql"
 			},
 			"currentConnection": {
-				"databaseName": "master",
+				"databaseName": "poc",
 				"poolName": "Built-in"
 			},
 			"resultLimit": 5000
