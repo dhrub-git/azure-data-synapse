@@ -1,1 +1,1 @@
-Code BAse for Azure Synapse POC
+Code Base for Azure Synapse POC
