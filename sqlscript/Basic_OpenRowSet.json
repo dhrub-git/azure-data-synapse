@@ -1,0 +1,17 @@
+{
+	"name": "Basic_OpenRowSet",
+	"properties": {
+		"content": {
+			"query": "-- This is auto-generated code\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://azuredatalake4synapse.dfs.core.windows.net/azuredatalakefs4synapse/covid-19/bing_covid-19_data/bing_covid-19_data.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result]\nWHERE [result].country_region = 'India'\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
