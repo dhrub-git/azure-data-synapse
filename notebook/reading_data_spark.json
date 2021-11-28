@@ -1,0 +1,72 @@
+{
+	"name": "reading_data_spark",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "synapsepool",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "9f2500bf-5e3e-4c28-96ae-b457eea8628c"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/49cdacff-e626-42da-8c07-221d93a7424c/resourceGroups/azure-data/providers/Microsoft.Synapse/workspaces/azure-data-synapse/bigDataPools/synapsepool",
+				"name": "synapsepool",
+				"type": "Spark",
+				"endpoint": "https://azure-data-synapse.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/synapsepool",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "3.1",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"automaticScaleJobs": false
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"microsoft": {
+						"language": "python"
+					}
+				},
+				"source": [
+					"%%pyspark\r\n",
+					"#Reading parquet file\r\n",
+					"df = spark.read.load('abfss://azuredatalakefs4synapse@azuredatalake4synapse.dfs.core.windows.net/covid-19/bing_covid-19_data/bing_covid-19_data.parquet', format='parquet')\r\n",
+					"df.printSchema()\r\n",
+					"\r\n",
+					"#Reading CSV file\r\n",
+					"df = spark.read.load('abfss://azuredatalakefs4synapse@azuredatalake4synapse.dfs.core.windows.net/wwi-02/sale-poc/sale-20170501.csv', format='csv')\r\n",
+					"df.printSchema()"
+				],
+				"execution_count": 2
+			}
+		]
+	}
+}
