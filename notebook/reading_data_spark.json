@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "9f2500bf-5e3e-4c28-96ae-b457eea8628c"
+				"spark.autotune.trackingId": "86dac6b9-1619-4412-af27-94114a8cd4eb"
 			}
 		},
 		"metadata": {
@@ -65,7 +65,79 @@
 					"df = spark.read.load('abfss://azuredatalakefs4synapse@azuredatalake4synapse.dfs.core.windows.net/wwi-02/sale-poc/sale-20170501.csv', format='csv')\r\n",
 					"df.printSchema()"
 				],
-				"execution_count": 2
+				"execution_count": 5
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "python"
+					}
+				},
+				"source": [
+					"%%pyspark\r\n",
+					"spark.sql(\"CREATE DATABASE IF NOT EXISTS salesdata2017\")\r\n",
+					"df.write.mode(\"overwrite\").saveAsTable(\"salesdata2017\")"
+				],
+				"execution_count": 7
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "python"
+					},
+					"collapsed": false
+				},
+				"source": [
+					"%%pyspark\r\n",
+					"df = spark.sql(\"SELECT * FROM salesdata2017\") \r\n",
+					"display(df)"
+				],
+				"execution_count": 9
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "python"
+					}
+				},
+				"source": [
+					"%%pyspark\r\n",
+					"df = spark.sql(\"SELECT * FROM salesdata2017\") \r\n",
+					"df.select('_c0')\r\n",
+					"df.select('*').collect()\r\n",
+					"df.show()"
+				],
+				"execution_count": 14
 			}
 		]
 	}
